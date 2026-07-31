@@ -63,6 +63,7 @@ func main() {
 		r.Use(app.RequireAuth)
 
 		r.Get("/profile", app.GetProfileHandler)
+		
 		r.Post("/logout", app.PostLogoutHandler)
 
 		r.Get("/collections", app.GetCollectionsHandler)

@@ -45,7 +45,7 @@ func (app *App) PostCollectionHandler(w http.ResponseWriter, r *http.Request) {
 func (app *App) DeleteCollectionHandler(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.ParseInt(chi.URLParam(r, "collection_id"), 10, 64)
 	if err != nil {
-		render(w, r, templates.Messagebox("Invalid collection ID", true))
+		render(w, r, templates.CollectionDeleteError("Invalid collection ID"))
 		return
 	}
 	err = app.Queries.DeleteCollection(r.Context(), repo.DeleteCollectionParams{
@@ -54,8 +54,8 @@ func (app *App) DeleteCollectionHandler(w http.ResponseWriter, r *http.Request) 
 	})
 	if err != nil {
 		slog.Error("delete collection", "error", err)
-		render(w, r, templates.Messagebox("Cannot delete collection", true))
+		render(w, r, templates.CollectionDeleteError("Internal error. Try again"))
 		return
 	}
-	render(w, r, templates.Messagebox("Collection deleted", false))
+	render(w, r, templates.CollectionDeleted(int(id)))
 }

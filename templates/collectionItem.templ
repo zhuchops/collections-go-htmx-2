@@ -14,8 +14,7 @@ templ CollectionItemLi(collection repo.Collection) {
         </button>
         <button
             hx-delete={ fmt.Sprintf("/collections/%d", collection.ID) }
-            hx-target="closest li"
-            hx-swap="delete"
+            hx-swap="none"
         >Delete</button>
     </li>
 }
@@ -31,5 +30,14 @@ templ CollectionCreated(collection repo.Collection) {
 // CollectionCreateError keeps the form open and shows an error flash.
 templ CollectionCreateError(msg string) {
     @AddCollectionForm()
+    @Messagebox(msg, true)
+}
+
+templ CollectionDeleted(id int) {
+    <li id={fmt.Sprintf("collection-%d", id)} hx-swap-oob="delete"></li>
+    @Messagebox("Collection deleted", false)
+}
+
+templ CollectionDeleteError(msg string) {
     @Messagebox(msg, true)
 }

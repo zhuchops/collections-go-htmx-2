@@ -1,0 +1,33 @@
+-- +goose Up
+ALTER TABLE collections
+ALTER COLUMN created_at
+SET DEFAULT NOW();
+
+ALTER TABLE collections
+ALTER COLUMN created_at
+SET NOT NULL;
+
+ALTER TABLE cards
+ALTER COLUMN created_at
+SET DEFAULT NOW();
+
+ALTER TABLE cards
+ALTER COLUMN created_at
+SET NOT NULL;
+
+-- +goose Down
+ALTER TABLE collections
+ALTER COLUMN created_at
+DROP DEFAULT NOW();
+
+ALTER TABLE collections
+ALTER COLUMN created_at
+DROP NOT NULL;
+
+ALTER TABLE cards
+ALTER COLUMN created_at
+DROP DEFAULT NOW();
+
+ALTER TABLE cards
+ALTER COLUMN created_at
+DROP NOT NULL;

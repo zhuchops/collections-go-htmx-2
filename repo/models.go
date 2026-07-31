@@ -9,11 +9,20 @@ import (
 	"time"
 )
 
+type Card struct {
+	ID           int64
+	UserID       int64
+	CollectionID int64
+	Title        string
+	Description  sql.NullString
+	CreatedAt    time.Time
+}
+
 type Collection struct {
 	ID        int64
 	UserID    int64
 	Title     string
-	CreatedAt sql.NullTime
+	CreatedAt time.Time
 }
 
 type Session struct {
