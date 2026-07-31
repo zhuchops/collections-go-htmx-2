@@ -1,0 +1,22 @@
+package templates
+
+import "collections-go-htmx-2/repo"
+
+templ CollectionsPage(collections []repo.Collection) {
+    @Layout() {
+        <div>
+            <h1>Collections</h1>
+            <button 
+                hx-get="/collections/add-form" 
+                hx-target="#add-form" 
+                hx-swap="innerHTML"
+            >Add</button>
+            <div id="add-form"></div>
+            <ul id="collections-list">
+                for _, c := range collections {
+                    @CollectionItem(c)
+                }
+            </ul>
+        </div>
+    }
+}

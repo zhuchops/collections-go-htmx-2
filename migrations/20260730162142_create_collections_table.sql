@@ -1,0 +1,10 @@
+-- +goose Up
+CREATE TABLE collections (
+    id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT REFERENCES users(id) ON DELETE CASCADE,
+    title TEXT NOT NULL,
+    created_at TIMESTAMPTZ 
+);
+
+-- +goose Down
+DROP TABLE collections;

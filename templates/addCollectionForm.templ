@@ -1,0 +1,19 @@
+package templates
+
+templ AddCollectionForm() {
+    <div id="add-form">
+        <form
+            hx-post="/collections/new"
+            hx-target="#add-form"
+            hx-swap="outerHTML"
+        >
+            <input name="title" placeholder="title" />
+            <button type="submit">Confirm</button>
+            <button 
+                hx-get="/collections/cancel-button"
+                hx-target="#add-form"
+                hx-swap="outerHTML"
+            >Cancel</button>
+        </form>
+    </div>
+}

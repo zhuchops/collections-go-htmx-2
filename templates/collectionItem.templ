@@ -1,0 +1,17 @@
+package templates
+
+import "collections-go-htmx-2/repo"
+import "fmt"
+
+templ CollectionItem(collection repo.Collection) {
+    <div id="add-form"></div>
+
+    <ul id="collections-list" hx-swap-oob="beforeend">
+        <li id={fmt.Sprintf("collection-%d", collection.ID)}>
+            <p>{collection.Title}</p>
+            <button hx-delete={ fmt.Sprintf("/collections/delete/%d", collection.ID) }
+                hx-target="closest li" hx-swap="delete" 
+            >Delete</button>
+        </li>
+    </ul>
+}
