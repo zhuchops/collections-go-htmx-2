@@ -41,7 +41,7 @@ func RegisterPage() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div><h1>Register</h1><form hx-post=\"/register\" hx-target=\"#register_output\" hx-swap=\"innerHTML\"><input name=\"username\" placeholder=\"username\" type=\"text\"> <input name=\"email\" placeholder=\"email\" type=\"email\"> <input name=\"password\" placeholder=\"password\" type=\"password\"> <input name=\"password_again\" placeholder=\"password again\" type=\"password\"> <button type=\"submit\">Submit</button></form><p>Already have account? <a href=\"\" hx-get=\"/login\" hx-target=\"body\" hx-swap=\"outerHTML\">Login here!</a></p><div id=\"register_output\"></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div><h1>Register</h1><form hx-post=\"/register\" hx-target=\"#register_output\" hx-swap=\"innerHTML\"><input name=\"username\" placeholder=\"username\" type=\"text\"> <input name=\"email\" placeholder=\"email\" type=\"email\"> <input name=\"password\" placeholder=\"password\" type=\"password\"> <input name=\"password_again\" placeholder=\"password again\" type=\"password\"> <button type=\"submit\">Submit</button></form><p>Already have account? <a href=\"\" hx-get=\"/login\" hx-target=\"body\" hx-swap=\"outerHTML\" hx-push-url=\"true\">Login here!</a></p><div id=\"register_output\"></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

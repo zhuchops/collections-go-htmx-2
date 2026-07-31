@@ -4,20 +4,22 @@ import "collections-go-htmx-2/repo"
 
 templ CollectionsPage(collections []repo.Collection) {
     @Layout() {
-        <div>
-            <h1>Collections</h1>
-            <button
-                hx-get="/collections/add-form"
-                hx-target="#add-form"
-                hx-swap="outerHTML"
-            >Add</button>
-            <div id="add-form"></div>
-            <ul id="collections-list">
-                for _, c := range collections {
-                    @CollectionItemLi(c)
-                }
-            </ul>
-            <div id="messagebox"></div>
-        </div>
+        @NavigationPanel() {
+            <div>
+                <h1>Collections</h1>
+                <button
+                    hx-get="/collections/add-form"
+                    hx-target="#add-form"
+                    hx-swap="outerHTML"
+                >Add</button>
+                <div id="add-form"></div>
+                <ul id="collections-list">
+                    for _, c := range collections {
+                        @CollectionItemLi(c)
+                    }
+                </ul>
+                <div id="messagebox"></div>
+            </div>
+        }
     }
 }

@@ -13,7 +13,7 @@ templ LoginPage() {
 				<input name="password" placeholder="password" type="password"/>
 				<button type="submit">Submit</button>
 			</form>
-			<p>Have not account yet? <a href="" hx-get="/register" hx-target="body" hx-swap="outerHTML">Register now!</a></p>	
+			<p>Have not account yet? <a href="" hx-get="/register" hx-target="body" hx-swap="outerHTML" hx-push-url="true">Register now!</a></p>	
 			<div id="login_output"></div>
 		</div>
 	}

@@ -2,11 +2,13 @@ package templates
 
 templ ProfilePage(email string, username string) {
 	@Layout() {
-		<div>
-			<h1>Profile</h1>
-			<p>Your email: {email}</p>
-			<p>Your username: {username}</p>
-			<button hx-post="/logout">Logout</button>
-		</div>
+		@NavigationPanel() {
+			<div>
+				<h1>Profile</h1>
+				<p>Your email: {email}</p>
+				<p>Your username: {username}</p>
+				<button hx-post="/logout">Logout</button>
+			</div>
+		}
 	}
 }

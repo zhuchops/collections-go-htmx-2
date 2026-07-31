@@ -41,7 +41,7 @@ func LoginPage() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div><h1>Login</h1><form hx-post=\"/login\" hx-target=\"#login_output\" hx-swap=\"innerHTML\"><input name=\"email\" placeholder=\"email\" type=\"email\"> <input name=\"password\" placeholder=\"password\" type=\"password\"> <button type=\"submit\">Submit</button></form><p>Have not account yet? <a href=\"\" hx-get=\"/register\" hx-target=\"body\" hx-swap=\"outerHTML\">Register now!</a></p><div id=\"login_output\"></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div><h1>Login</h1><form hx-post=\"/login\" hx-target=\"#login_output\" hx-swap=\"innerHTML\"><input name=\"email\" placeholder=\"email\" type=\"email\"> <input name=\"password\" placeholder=\"password\" type=\"password\"> <button type=\"submit\">Submit</button></form><p>Have not account yet? <a href=\"\" hx-get=\"/register\" hx-target=\"body\" hx-swap=\"outerHTML\" hx-push-url=\"true\">Register now!</a></p><div id=\"login_output\"></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
