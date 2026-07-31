@@ -1,0 +1,13 @@
+package templates
+
+// Messagebox renders an OOB swap for the #messagebox element.
+// Pass isError=true to render with an error style, false for success.
+templ Messagebox(msg string, isError bool) {
+    <div id="messagebox" hx-swap-oob="outerHTML">
+        if isError {
+            <p class="msg msg-error">{ msg }</p>
+        } else {
+            <p class="msg msg-success">{ msg }</p>
+        }
+    </div>
+}

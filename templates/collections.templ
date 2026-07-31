@@ -6,17 +6,18 @@ templ CollectionsPage(collections []repo.Collection) {
     @Layout() {
         <div>
             <h1>Collections</h1>
-            <button 
-                hx-get="/collections/add-form" 
-                hx-target="#add-form" 
-                hx-swap="innerHTML"
+            <button
+                hx-get="/collections/add-form"
+                hx-target="#add-form"
+                hx-swap="outerHTML"
             >Add</button>
             <div id="add-form"></div>
             <ul id="collections-list">
                 for _, c := range collections {
-                    @CollectionItem(c)
+                    @CollectionItemLi(c)
                 }
             </ul>
+            <div id="messagebox"></div>
         </div>
     }
 }

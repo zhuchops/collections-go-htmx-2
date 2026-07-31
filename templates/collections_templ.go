@@ -43,17 +43,17 @@ func CollectionsPage(collections []repo.Collection) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div><h1>Collections</h1><button hx-get=\"/collections/add-form\" hx-target=\"#add-form\" hx-swap=\"innerHTML\">Add</button><div id=\"add-form\"></div><ul id=\"collections-list\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div><h1>Collections</h1><button hx-get=\"/collections/add-form\" hx-target=\"#add-form\" hx-swap=\"outerHTML\">Add</button><div id=\"add-form\"></div><ul id=\"collections-list\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			for _, c := range collections {
-				templ_7745c5c3_Err = CollectionItem(c).Render(ctx, templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = CollectionItemLi(c).Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</ul></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</ul><div id=\"messagebox\"></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

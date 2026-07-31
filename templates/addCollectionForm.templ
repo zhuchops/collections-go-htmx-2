@@ -3,17 +3,22 @@ package templates
 templ AddCollectionForm() {
     <div id="add-form">
         <form
-            hx-post="/collections/new"
+            hx-post="/collections"
             hx-target="#add-form"
             hx-swap="outerHTML"
         >
-            <input name="title" placeholder="title" />
+            <input name="title" placeholder="Title" required />
             <button type="submit">Confirm</button>
-            <button 
-                hx-get="/collections/cancel-button"
+            <button type="button"
+                hx-get="/collections/cancel"
                 hx-target="#add-form"
                 hx-swap="outerHTML"
             >Cancel</button>
         </form>
     </div>
+}
+
+// EmptyAddForm resets the add-form area back to a blank placeholder.
+templ EmptyAddForm() {
+    <div id="add-form"></div>
 }

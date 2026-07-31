@@ -7,7 +7,6 @@ package repo
 
 import (
 	"context"
-	"database/sql"
 )
 
 const createCollection = `-- name: CreateCollection :one
@@ -17,7 +16,7 @@ RETURNING id, user_id, title, created_at
 `
 
 type CreateCollectionParams struct {
-	UserID sql.NullInt64
+	UserID int64
 	Title  string
 }
 
@@ -40,7 +39,7 @@ WHERE id = $1 AND user_id = $2
 
 type DeleteCollectionParams struct {
 	ID     int64
-	UserID sql.NullInt64
+	UserID int64
 }
 
 func (q *Queries) DeleteCollection(ctx context.Context, arg DeleteCollectionParams) error {
@@ -53,7 +52,7 @@ SELECT id, user_id, title, created_at FROM collections
 WHERE user_id = $1
 `
 
-func (q *Queries) GetCollectionsByUserId(ctx context.Context, userID sql.NullInt64) ([]Collection, error) {
+func (q *Queries) GetCollectionsByUserId(ctx context.Context, userID int64) ([]Collection, error) {
 	rows, err := q.db.QueryContext(ctx, getCollectionsByUserId, userID)
 	if err != nil {
 		return nil, err

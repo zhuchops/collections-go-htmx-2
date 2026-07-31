@@ -11,7 +11,7 @@ import (
 
 type Collection struct {
 	ID        int64
-	UserID    sql.NullInt64
+	UserID    int64
 	Title     string
 	CreatedAt sql.NullTime
 }

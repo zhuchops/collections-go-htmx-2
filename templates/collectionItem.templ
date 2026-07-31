@@ -3,15 +3,33 @@ package templates
 import "collections-go-htmx-2/repo"
 import "fmt"
 
-templ CollectionItem(collection repo.Collection) {
-    <div id="add-form"></div>
+templ CollectionItemLi(collection repo.Collection) {
+    <li id={ fmt.Sprintf("collection-%d", collection.ID) }>
+        <button
+            hx-get={ fmt.Sprintf("/collections/%d", collection.ID) }
+            hx-target="body"
+            hx-swap="outerHTML"
+        >
+            <p>{ collection.Title }</p>
+        </button>
+        <button
+            hx-delete={ fmt.Sprintf("/collections/%d", collection.ID) }
+            hx-target="closest li"
+            hx-swap="delete"
+        >Delete</button>
+    </li>
+}
 
+templ CollectionCreated(collection repo.Collection) {
+    @EmptyAddForm()
     <ul id="collections-list" hx-swap-oob="beforeend">
-        <li id={fmt.Sprintf("collection-%d", collection.ID)}>
-            <p>{collection.Title}</p>
-            <button hx-delete={ fmt.Sprintf("/collections/delete/%d", collection.ID) }
-                hx-target="closest li" hx-swap="delete" 
-            >Delete</button>
-        </li>
+        @CollectionItemLi(collection)
     </ul>
+    @Messagebox("Collection created", false)
+}
+
+// CollectionCreateError keeps the form open and shows an error flash.
+templ CollectionCreateError(msg string) {
+    @AddCollectionForm()
+    @Messagebox(msg, true)
 }
