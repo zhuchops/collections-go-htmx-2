@@ -13,33 +13,24 @@ templ CardLi(card repo.Card) {
         >
             <p>{card.Title}</p>
         </button>
-        <button
-            hx-delete={fmt.Sprintf("/collections/%d/cards/%d", card.CollectionID, card.ID)}
-            hx-swap="none"
-        >
-        Delete
-        </button>            
     </li>
 }
 
 templ CardCreated(card repo.Card) {
     @EmptyAddCardForm()
-    <li id={fmt.Sprintf("card-%d", card.ID)} hx-swap-oob="beforeend:#cards-list">
-        <button
-            hx-get={fmt.Sprintf("/collections/%d/cards/%d", card.CollectionID, card.ID)}
-            hx-target="body"
-            hx-swap="innerHTML"
-            hx-push-url="true"
-        >
-            <p>{card.Title}</p>
-        </button>
-        <button
-            hx-delete={fmt.Sprintf("/collections/%d/cards/%d", card.CollectionID, card.ID)}
-            hx-swap="none"
-        >
-        Delete
-        </button>            
-    </li>
+    <ul id="cards-list" hx-swap-oob="beforeend">
+        <li id={fmt.Sprintf("card-%d", card.ID)}>
+            <button
+                hx-get={fmt.Sprintf("/collections/%d/cards/%d", card.CollectionID, card.ID)}
+                hx-target="body"
+                hx-swap="innerHTML"
+                hx-push-url="true"
+            >
+                <p>{card.Title}</p>
+            </button>
+        </li>
+
+    </ul>
     @ToastOOB(Toast{Type: ToastSuccess, Message: "Card created"})
 }
 

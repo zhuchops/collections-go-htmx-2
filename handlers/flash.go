@@ -54,3 +54,7 @@ func renderWithToast(w http.ResponseWriter, r *http.Request, comp templ.Componen
 func renderToast(w http.ResponseWriter, r *http.Request, toastType ToastType, msg string) {
 	render(w, r, templates.ToastOOB(Toast{Type: toastType, Message: msg}))
 }
+
+func renderToasts(w http.ResponseWriter, r *http.Request, toasts []Toast) {
+	render(w, r, templates.ToastContainer(toasts))
+}

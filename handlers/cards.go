@@ -71,14 +71,41 @@ func (app *App) DeleteCardHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "bad request", http.StatusBadRequest)
 		return
 	}
+	colId, err := strconv.ParseInt(chi.URLParam(r, "collection_id"), 10, 64)
+	if err != nil {
+		http.Error(w, "bad request", http.StatusBadRequest)
+		return
+	}
+	toasts := []Toast{}
 	params := repo.DeleteCardParams{UserID: userId, ID: cardId}
 	err = app.Queries.DeleteCard(r.Context(), params)
 	if err != nil {
 		slog.Error("delete card", "error", err)
-		renderToast(w, r, ToastError, "Cannot delete card. Internal error")
+		toasts = append(toasts, templates.Toast{Type: ToastError, Message: "Cannot delete card. Internal error"})
+		renderToasts(w, r, toasts)
 		return
 	}
-	render(w, r, templates.CardDeleted(int(cardId)))
+	// app.PutFlash(r, templates.ToastSuccess, "Deleted successfully")
+	toasts = append(toasts, templates.Toast{Type: ToastSuccess, Message: "Deleted successfully"})
+	col, err := app.Queries.GetCollection(r.Context(), 
+								repo.GetCollectionParams{
+									ID: colId, UserID: userId,
+								})
+	if err != nil {
+		toasts = append(toasts, templates.Toast{Type: ToastError, Message: "Cannot load collection info"})
+		renderToasts(w, r, toasts)
+		return
+	}
+	cards, err := app.Queries.GetCards(r.Context(),
+								repo.GetCardsParams{
+									CollectionID: colId, UserID: userId,
+								})
+	if err != nil {
+		toasts = append(toasts, templates.Toast{Type: ToastError, Message: "Cannot laod cards"})
+		renderToasts(w, r, toasts)
+		return
+	}
+	render(w, r, templates.CardsPage(col, cards, toasts))
 }
 
 func (app *App) GetCardHandler(w http.ResponseWriter, r *http.Request) {

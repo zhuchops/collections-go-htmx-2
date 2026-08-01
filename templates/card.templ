@@ -19,6 +19,11 @@ templ CardInfo(card repo.Card) {
             hx-target="#update-form"
             hx-swap="outerHTML"
         >Update</button>
+        <button
+            hx-delete={fmt.Sprintf("/collections/%d/cards/%d", card.CollectionID, card.ID)} 
+            hx-target="body"
+            hx-swap="innerHTML"
+        >Delete</button>
         <div id="update-form"></div>
         <p>{card.Description.String}</p>
     </div>

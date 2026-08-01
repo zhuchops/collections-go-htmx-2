@@ -22,89 +22,6 @@ type Toast struct {
 	Message string
 }
 
-//	templ ToastStyles() {
-//		<style>
-//			.toast-container {
-//				position: fixed;
-//				top: 20px;
-//				right: 20px;
-//				z-index: 9999;
-//				display: flex;
-//				flex-direction: column;
-//				gap: 10px;
-//				pointer-events: none;
-//			}
-//			.toast {
-//				pointer-events: auto;
-//				display: flex;
-//				align-items: center;
-//				justify-content: space-between;
-//				padding: 12px 16px;
-//				border-radius: 8px;
-//				font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-//				font-size: 14px;
-//				font-weight: 500;
-//				box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
-//				min-width: 260px;
-//				max-width: 420px;
-//				animation: toastSlideIn 0.3s ease-out, toastFadeOut 0.5s ease 4s forwards;
-//				transition: all 0.2s ease;
-//			}
-//			.toast-success {
-//				background-color: #10b981;
-//				color: #ffffff;
-//			}
-//			.toast-error {
-//				background-color: #ef4444;
-//				color: #ffffff;
-//			}
-//			.toast-info {
-//				background-color: #3b82f6;
-//				color: #ffffff;
-//			}
-//			.toast-warning {
-//				background-color: #f59e0b;
-//				color: #ffffff;
-//			}
-//			.toast-close {
-//				background: none;
-//				border: none;
-//				color: currentColor;
-//				font-size: 16px;
-//				line-height: 1;
-//				cursor: pointer;
-//				margin-left: 12px;
-//				padding: 2px 4px;
-//				opacity: 0.8;
-//				border-radius: 4px;
-//			}
-//			.toast-close:hover {
-//				opacity: 1;
-//				background-color: rgba(255, 255, 255, 0.2);
-//			}
-//			@keyframes toastSlideIn {
-//				from {
-//					transform: translateY(-20px);
-//					opacity: 0;
-//				}
-//				to {
-//					transform: translateY(0);
-//					opacity: 1;
-//				}
-//			}
-//			@keyframes toastFadeOut {
-//				0% {
-//					opacity: 1;
-//					transform: translateY(0);
-//				}
-//				100% {
-//					opacity: 0;
-//					transform: translateY(-10px);
-//					pointer-events: none;
-//				}
-//			}
-//		</style>
-//	}
 func ToastItem(t Toast) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
@@ -151,7 +68,7 @@ func ToastItem(t Toast) templ.Component {
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(t.Message)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/flash.templ`, Line: 106, Col: 41}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/flash.templ`, Line: 22, Col: 41}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {
@@ -223,7 +140,7 @@ func ToastContainer(toasts []Toast) templ.Component {
 			templ_7745c5c3_Var6 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<div id=\"toast-container\" class=\"toast-container\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<div id=\"toast-container\" hx-swap-oob=\"beforeend\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
