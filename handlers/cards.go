@@ -60,3 +60,24 @@ func (app *App) PostCardHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	render(w, r, templates.CardCreated(card))
 }
+
+func (app *App) DeleteCardHandler(w http.ResponseWriter, r *http.Request) {
+	// collectionId, err := strconv.ParseInt(chi.URLParam(r, "collection_id"), 10, 64)
+	// if err != nil {
+	// 	http.Error(w, "bad request", http.StatusBadRequest)
+	// 	return
+	// }
+	userId := app.SessionManager.GetInt64(r.Context(), "user_id")
+	cardId, err := strconv.ParseInt(chi.URLParam(r, "card_id"), 10, 64)
+	if err != nil {
+		http.Error(w, "bad request", http.StatusBadRequest)
+		return
+	}	
+	params := repo.DeleteCardParams{UserID: userId, ID: cardId}
+	err = app.Queries.DeleteCard(r.Context(), params)
+	if err != nil {
+		render(w, r, templates.CardDeleteError("Cannot delete card. Internal error"))
+		return
+	}
+	render(w, r, templates.CardDeleted(int(cardId)))
+}
