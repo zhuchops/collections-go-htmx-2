@@ -1,23 +1,20 @@
 package templates
 
-import "fmt"
 import "collections-go-htmx-2/repo"
 
-templ CardLi(card repo.Card) {
-    <li id={fmt.Sprintf("card-%d", card.ID)}>
-        <button
-            hx-get={fmt.Sprintf("/collections/%d/cards/%d", card.CollectionID, card.ID)}
-            hx-target="body"
-            hx-swap="outerHTML"
-            hx-push-url="true"
-        >
-            <p>{card.Title}</p>
-        </button>
-        <button
-            hx-delete={fmt.Sprintf("/collections/%d/cards%d", card.CollectionID, card.ID)}
-            hx-target=""
-            hx-swap="outerHTML"
-        >
-        </button>            
-    </li>
+templ CardPage(card repo.Card) {
+    @Layout() {
+        @NavigationPanel() {
+            <div>
+                <h1>{card.Title}</h1>
+                <button
+                    hx-get="/cards/update-form"
+                    hx-target="#update-form"
+                    hx-swap="outerHTML"
+                >Update</button>
+                <div id="update-form"></div>
+                <p>{card.Description.String}</p>
+            </div>
+        }
+    }
 }

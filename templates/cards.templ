@@ -1,0 +1,25 @@
+package templates
+
+import "collections-go-htmx-2/repo"
+import "fmt"
+
+templ CardsPage(collection repo.Collection, cards []repo.Card) {
+    @Layout() {
+        @NavigationPanel() {
+            <div>
+                <h1>{collection.Title}</h1>
+                <button
+                    hx-get={fmt.Sprintf("/collections/%d/add-form", collection.ID)}
+                    hx-target="#add-form"
+                    hx-swap="outerHTML"
+                >Add</button>
+                <div id="add-form"></div>
+                <ul id="cards-list">
+                    for _, c := range cards {
+                        @CardLi(c)
+                    }
+                </ul>
+            </div>
+        }
+    }
+}

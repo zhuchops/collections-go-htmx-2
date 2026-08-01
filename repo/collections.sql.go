@@ -47,6 +47,28 @@ func (q *Queries) DeleteCollection(ctx context.Context, arg DeleteCollectionPara
 	return err
 }
 
+const getCollection = `-- name: GetCollection :one
+SELECT id, user_id, title, created_at FROM collections
+WHERE id = $1 AND user_id = $2
+`
+
+type GetCollectionParams struct {
+	ID     int64
+	UserID int64
+}
+
+func (q *Queries) GetCollection(ctx context.Context, arg GetCollectionParams) (Collection, error) {
+	row := q.db.QueryRowContext(ctx, getCollection, arg.ID, arg.UserID)
+	var i Collection
+	err := row.Scan(
+		&i.ID,
+		&i.UserID,
+		&i.Title,
+		&i.CreatedAt,
+	)
+	return i, err
+}
+
 const getCollectionsByUserId = `-- name: GetCollectionsByUserId :many
 SELECT id, user_id, title, created_at FROM collections
 WHERE user_id = $1

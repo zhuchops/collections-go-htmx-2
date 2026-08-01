@@ -6,9 +6,10 @@ import "fmt"
 templ CollectionItemLi(collection repo.Collection) {
     <li id={ fmt.Sprintf("collection-%d", collection.ID) }>
         <button
-            hx-get={ fmt.Sprintf("/collections/%d", collection.ID) }
+            hx-get={ fmt.Sprintf("/collections/%d/cards", collection.ID) }
             hx-target="body"
             hx-swap="outerHTML"
+            hx-push-url="true"
         >
             <p>{ collection.Title }</p>
         </button>

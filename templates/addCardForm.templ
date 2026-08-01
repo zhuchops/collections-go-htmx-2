@@ -1,0 +1,27 @@
+package templates
+
+import "fmt"
+
+templ AddCardForm(collectionId int, msg string) {
+    <div id="add-form">
+        <form
+            hx-post={fmt.Sprintf("/collections/%d/cards", collectionId)}
+            hx-target="#add-form"
+            hx-swap="outerHTML"
+        >
+            <input name="title" placeholder="Title" required />
+            <input name="description" placeholder="Description" />
+            <button type="submit">Confirm</button>
+            <button type="button"
+                hx-get="/cards/cancel"
+                hx-target="#add-form"
+                hx-swap="outerHTML"
+            >Cancel</button>
+        </form>
+    </div>
+}
+
+// EmptyAddForm resets the add-form area back to a blank placeholder.
+templ EmptyAddCardForm() {
+    <div id="add-form"></div>
+}

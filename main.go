@@ -63,14 +63,23 @@ func main() {
 		r.Use(app.RequireAuth)
 
 		r.Get("/profile", app.GetProfileHandler)
-		
+
 		r.Post("/logout", app.PostLogoutHandler)
 
 		r.Get("/collections", app.GetCollectionsHandler)
 		r.Get("/collections/add-form", app.GetAddFormHandler)
 		r.Get("/collections/cancel", app.GetCancelFormHandler)
+		r.Get("/collections/{collection_id:[0-9]*}/cards", app.GetCardsHandler)
+
+		// r.Get("/collections/{collection_id}/cards/{card_id}", app.GetCardHandler)
+		r.Get("/collections/{collection_id}/add-form", app.GetCardAddFormHandler)
+		// r.Get("/cards/cancel", app.GetCardCancelFormHandler)
+
 		r.Post("/collections", app.PostCollectionHandler)
-		r.Delete("/collections/{collection_id}", app.DeleteCollectionHandler)
+
+		r.Post("/collections/{collection_id}/cards", app.PostCardHandler)
+
+		r.Delete("/collections/{collection_id:[0-9]*}", app.DeleteCollectionHandler)
 	})
 
 	log.Println("listening on :8080")

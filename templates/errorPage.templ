@@ -1,0 +1,12 @@
+package templates
+
+templ ErrorPage(msg string) {
+    @Layout() {
+        @NavigationPanel() {
+            <div>
+                <h1>Error</h1>
+                <p>{msg}</p>
+            </div>
+        }
+    }
+}

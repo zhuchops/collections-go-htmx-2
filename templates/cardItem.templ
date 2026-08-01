@@ -1,0 +1,44 @@
+package templates
+
+import "fmt"
+import "collections-go-htmx-2/repo"
+
+templ CardLi(card repo.Card) {
+    <li id={fmt.Sprintf("card-%d", card.ID)}>
+        <button
+            hx-get={fmt.Sprintf("/collections/%d/cards/%d", card.CollectionID, card.ID)}
+            hx-target="body"
+            hx-swap="outerHTML"
+            hx-push-url="true"
+        >
+            <p>{card.Title}</p>
+        </button>
+        <button
+            hx-delete={fmt.Sprintf("/collections/%d/cards/%d", card.CollectionID, card.ID)}
+        >
+        Delete
+        </button>            
+    </li>
+}
+
+templ CardCreated(card repo.Card) {
+    @EmptyAddCardForm()
+    <ul id="cards-list" hx-swap-oob="beforeend">
+        @CardLi(card)
+    </ul>
+    @Messagebox("Card created", false)
+}
+
+templ CardCreateError(msg string) {
+    @EmptyAddCardForm()
+    @Messagebox(msg, true)
+}
+
+templ CardDeleted(id int) {
+    <li id={fmt.Sprintf("card-%d", id)} hx-swap-oob="delete"></li>
+    @Messagebox("Card deleted", false)
+}
+
+templ CardDeleteError(msg string) {
+    @Messagebox(msg, true)
+}
