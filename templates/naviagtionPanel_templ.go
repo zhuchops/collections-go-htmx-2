@@ -29,7 +29,7 @@ func NavigationPanel() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div><ul><li><a href=\"\" hx-get=\"/profile\" hx-target=\"body\" hx-swap=\"outerHTML\" hx-push-url=\"true\">Profile</a></li><li><a href=\"\" hx-get=\"/collections\" hx-target=\"body\" hx-swap=\"outerHTML\" hx-push-url=\"true\">Collections</a></li></ul>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div><ul><li><a href=\"/profile\" hx-get=\"/profile\" hx-target=\"body\" hx-swap=\"innerHTML\" hx-push-url=\"true\">Profile</a></li><li><a href=\"/collections\" hx-get=\"/collections\" hx-target=\"body\" hx-swap=\"innerHTML\" hx-push-url=\"true\">Collections</a></li></ul>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

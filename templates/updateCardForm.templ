@@ -1,0 +1,27 @@
+package templates
+
+import "fmt"
+import "collections-go-htmx-2/repo"
+
+templ UpdateCardForm(card repo.Card) {
+    <div id="update-form">
+        <form
+            hx-put={fmt.Sprintf("/collections/%d/cards/%d", card.CollectionID, card.ID)}
+            hx-target="#card"
+            hx-swap="outerHTML"
+        >
+            <input name="title" value={card.Title} placeholder="Title" required />
+            <input name="description" value={card.Description.String} placeholder="Description" />
+            <button type="submit">Confirm</button>
+            <button type="button"
+                hx-get="/cards/update-form/cancel"
+                hx-target="#update-form"
+                hx-swap="outerHTML"
+            >Cancel</button>
+        </form>
+    </div>
+}
+
+templ EmptyUpdateCardForm() {
+    <div id="update-form"></div>
+}

@@ -3,8 +3,8 @@ package templates
 import "collections-go-htmx-2/repo"
 import "fmt"
 
-templ CardsPage(collection repo.Collection, cards []repo.Card) {
-    @Layout() {
+templ CardsPage(collection repo.Collection, cards []repo.Card, toasts []Toast) {
+    @Layout(toasts) {
         @NavigationPanel() {
             <div>
                 <h1>{collection.Title}</h1>

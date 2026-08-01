@@ -3,8 +3,8 @@ package templates
 templ NavigationPanel() {
     <div>
         <ul>
-            <li><a href="" hx-get="/profile" hx-target="body" hx-swap="outerHTML" hx-push-url="true">Profile</a></li> 
-            <li><a href="" hx-get="/collections" hx-target="body" hx-swap="outerHTML" hx-push-url="true">Collections</a></li>
+            <li><a href="/profile" hx-get="/profile" hx-target="body" hx-swap="innerHTML" hx-push-url="true">Profile</a></li> 
+            <li><a href="/collections" hx-get="/collections" hx-target="body" hx-swap="innerHTML" hx-push-url="true">Collections</a></li>
         </ul> 
         { children... }
     </div>

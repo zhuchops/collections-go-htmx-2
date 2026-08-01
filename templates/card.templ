@@ -1,20 +1,30 @@
 package templates
 
 import "collections-go-htmx-2/repo"
+import "fmt"
 
-templ CardPage(card repo.Card) {
-    @Layout() {
+templ CardPage(card repo.Card, toasts []Toast) {
+    @Layout(toasts) {
         @NavigationPanel() {
-            <div>
-                <h1>{card.Title}</h1>
-                <button
-                    hx-get="/cards/update-form"
-                    hx-target="#update-form"
-                    hx-swap="outerHTML"
-                >Update</button>
-                <div id="update-form"></div>
-                <p>{card.Description.String}</p>
-            </div>
+            @CardInfo(card)
         }
     }
+}
+
+templ CardInfo(card repo.Card) {
+    <div id="card">
+        <h1>{card.Title}</h1>
+        <button
+            hx-get={fmt.Sprintf("/cards/%d/update-form", card.ID)}
+            hx-target="#update-form"
+            hx-swap="outerHTML"
+        >Update</button>
+        <div id="update-form"></div>
+        <p>{card.Description.String}</p>
+    </div>
+}
+
+templ CardInfoUpdated(card repo.Card) {
+    @CardInfo(card)
+    @ToastOOB(Toast{Type: ToastSuccess, Message: "Card updated successfully"})
 }

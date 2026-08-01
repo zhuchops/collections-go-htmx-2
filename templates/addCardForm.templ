@@ -2,7 +2,7 @@ package templates
 
 import "fmt"
 
-templ AddCardForm(collectionId int, msg string) {
+templ AddCardForm(collectionId int) {
     <div id="add-form">
         <form
             hx-post={fmt.Sprintf("/collections/%d/cards", collectionId)}
@@ -21,7 +21,7 @@ templ AddCardForm(collectionId int, msg string) {
     </div>
 }
 
-// EmptyAddForm resets the add-form area back to a blank placeholder.
+// EmptyAddCardForm resets the add-form area back to a blank placeholder.
 templ EmptyAddCardForm() {
     <div id="add-form"></div>
 }

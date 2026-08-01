@@ -75,11 +75,15 @@ func main() {
 		r.Delete("/collections/{collection_id:[0-9]*}", app.DeleteCollectionHandler)
 
 		r.Get("/collections/{collection_id:[0-9]*}/cards", app.GetCardsHandler)
-		// r.Get("/collections/{collection_id}/cards/{card_id}", app.GetCardHandler)
+		r.Get("/collections/{collection_id:[0-9]*}/cards/{card_id:[0-9]*}", app.GetCardHandler)
 		r.Get("/collections/{collection_id}/add-form", app.GetCardAddFormHandler)
-		// r.Get("/cards/cancel", app.GetCardCancelFormHandler)
+		r.Get("/cards/{card_id:[0-9]*}/update-form", app.GetCardUpdateFormHandler)
+		r.Get("/cards/add-form/cancel", app.GetAddCardFormCancelHandler)
+		r.Get("/cards/update-form/cancel", app.GetCardUpdateFormCancelHandler)
 
 		r.Post("/collections/{collection_id}/cards", app.PostCardHandler)
+
+		r.Put("/collections/{collection_id:[0-9]*}/cards/{card_id:[0-9]*}", app.PutCardHandler)
 
 		r.Delete("/collections/{collection_id:[0-9]*}/cards/{card_id:[0-9]*}", app.DeleteCardHandler)
 	})

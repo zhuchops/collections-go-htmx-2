@@ -1,12 +1,13 @@
 package templates
 
-templ Layout() {
+templ Layout(toasts []Toast) {
 	<html>
 		<head>
 			<script src="https://unpkg.com/htmx.org@1.9.10"></script>
 			<title>Collections</title>
 		</head>
 		<body>
+			@ToastContainer(toasts)
 			<div id="main">
 				{ children... }
 			</div>

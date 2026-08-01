@@ -8,7 +8,7 @@ templ CollectionItemLi(collection repo.Collection) {
         <button
             hx-get={ fmt.Sprintf("/collections/%d/cards", collection.ID) }
             hx-target="body"
-            hx-swap="outerHTML"
+            hx-swap="innerHTML"
             hx-push-url="true"
         >
             <p>{ collection.Title }</p>
@@ -22,23 +22,24 @@ templ CollectionItemLi(collection repo.Collection) {
 
 templ CollectionCreated(collection repo.Collection) {
     @EmptyAddForm()
-    <ul id="collections-list" hx-swap-oob="beforeend">
-        @CollectionItemLi(collection)
-    </ul>
-    @Messagebox("Collection created", false)
-}
-
-// CollectionCreateError keeps the form open and shows an error flash.
-templ CollectionCreateError(msg string) {
-    @AddCollectionForm()
-    @Messagebox(msg, true)
+    <li id={ fmt.Sprintf("collection-%d", collection.ID) } hx-swap-oob="beforeend:#collections-list">
+        <button
+            hx-get={ fmt.Sprintf("/collections/%d/cards", collection.ID) }
+            hx-target="body"
+            hx-swap="innerHTML"
+            hx-push-url="true"
+        >
+            <p>{ collection.Title }</p>
+        </button>
+        <button
+            hx-delete={ fmt.Sprintf("/collections/%d", collection.ID) }
+            hx-swap="none"
+        >Delete</button>
+    </li>
+    @ToastOOB(Toast{Type: ToastSuccess, Message: "Collection created"})
 }
 
 templ CollectionDeleted(id int) {
     <li id={fmt.Sprintf("collection-%d", id)} hx-swap-oob="delete"></li>
-    @Messagebox("Collection deleted", false)
-}
-
-templ CollectionDeleteError(msg string) {
-    @Messagebox(msg, true)
+    @ToastOOB(Toast{Type: ToastSuccess, Message: "Collection deleted"})
 }

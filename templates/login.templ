@@ -1,7 +1,7 @@
 package templates
 
-templ LoginPage() {
-	@Layout() {
+templ LoginPage(toasts []Toast) {
+	@Layout(toasts) {
 		<div>
 			<h1>Login</h1>
 			<form
@@ -13,7 +13,7 @@ templ LoginPage() {
 				<input name="password" placeholder="password" type="password"/>
 				<button type="submit">Submit</button>
 			</form>
-			<p>Have not account yet? <a href="" hx-get="/register" hx-target="body" hx-swap="outerHTML" hx-push-url="true">Register now!</a></p>	
+			<p>Have not account yet? <a href="/register" hx-get="/register" hx-target="body" hx-swap="innerHTML" hx-push-url="true">Register now!</a></p>	
 			<div id="login_output"></div>
 		</div>
 	}

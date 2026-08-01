@@ -1,7 +1,7 @@
 package templates
 
-templ RegisterPage() {
-	@Layout() {
+templ RegisterPage(toasts []Toast) {
+	@Layout(toasts) {
 		<div>
 			<h1>Register</h1>
 			<form
@@ -15,7 +15,7 @@ templ RegisterPage() {
 				<input name="password_again" placeholder="password again" type="password"/>
 				<button type="submit">Submit</button>
 			</form>
-			<p>Already have account? <a href="" hx-get="/login" hx-target="body" hx-swap="outerHTML" hx-push-url="true">Login here!</a></p>
+			<p>Already have account? <a href="/login" hx-get="/login" hx-target="body" hx-swap="innerHTML" hx-push-url="true">Login here!</a></p>
 			<div id="register_output"></div>
 		</div>
 	}

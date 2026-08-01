@@ -16,7 +16,8 @@ func (app *App) GetCollectionsHandler(w http.ResponseWriter, r *http.Request) {
 		slog.Error("get collections", "error", err)
 		collections = []repo.Collection{}
 	}
-	render(w, r, templates.CollectionsPage(collections))
+	flashes := app.PopFlashes(r)
+	render(w, r, templates.CollectionsPage(collections, flashes))
 }
 
 func (app *App) GetAddFormHandler(w http.ResponseWriter, r *http.Request) {
@@ -36,7 +37,7 @@ func (app *App) PostCollectionHandler(w http.ResponseWriter, r *http.Request) {
 	collection, err := app.Queries.CreateCollection(r.Context(), params)
 	if err != nil {
 		slog.Error("create collection", "error", err)
-		render(w, r, templates.CollectionCreateError("Cannot create collection, please try again"))
+		renderWithToast(w, r, templates.AddCollectionForm(), ToastError, "Cannot create collection, please try again")
 		return
 	}
 	render(w, r, templates.CollectionCreated(collection))
@@ -45,7 +46,7 @@ func (app *App) PostCollectionHandler(w http.ResponseWriter, r *http.Request) {
 func (app *App) DeleteCollectionHandler(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.ParseInt(chi.URLParam(r, "collection_id"), 10, 64)
 	if err != nil {
-		render(w, r, templates.CollectionDeleteError("Invalid collection ID"))
+		renderToast(w, r, ToastError, "Invalid collection ID")
 		return
 	}
 	err = app.Queries.DeleteCollection(r.Context(), repo.DeleteCollectionParams{
@@ -54,7 +55,7 @@ func (app *App) DeleteCollectionHandler(w http.ResponseWriter, r *http.Request) 
 	})
 	if err != nil {
 		slog.Error("delete collection", "error", err)
-		render(w, r, templates.CollectionDeleteError("Internal error. Try again"))
+		renderToast(w, r, ToastError, "Cannot delete collection. Internal error")
 		return
 	}
 	render(w, r, templates.CollectionDeleted(int(id)))
