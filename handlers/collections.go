@@ -58,5 +58,8 @@ func (app *App) DeleteCollectionHandler(w http.ResponseWriter, r *http.Request) 
 		renderToast(w, r, ToastError, "Cannot delete collection. Internal error")
 		return
 	}
-	render(w, r, templates.CollectionDeleted(int(id)))
+	cols, err := app.Queries.GetCollectionsByUserId(r.Context(), app.sessionUserID(r))
+	toasts := []Toast{{Type: ToastSuccess, Message: "Collection deleted"}}
+	w.Header().Set("HX-Push-Url", "/collections")
+	render(w, r, templates.CollectionsPage(cols, toasts))
 }

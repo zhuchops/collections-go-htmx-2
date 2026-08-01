@@ -17,6 +17,7 @@ templ CardsPage(collection repo.Collection, cards []repo.Card, toasts []Toast) {
                     hx-delete={fmt.Sprintf("/collections/%d", collection.ID)}
                     hx-target="body"
                     hx-swap="outerHTML"
+                    hx-push-url="true"
                 >Delete</button>
                 <div id="add-form"></div>
                 <ul id="cards-list">

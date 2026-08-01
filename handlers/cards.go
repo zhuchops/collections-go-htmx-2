@@ -4,6 +4,7 @@ import (
 	"collections-go-htmx-2/repo"
 	"collections-go-htmx-2/templates"
 	"database/sql"
+	"fmt"
 	"log/slog"
 	"net/http"
 	"strconv"
@@ -105,6 +106,7 @@ func (app *App) DeleteCardHandler(w http.ResponseWriter, r *http.Request) {
 		renderToasts(w, r, toasts)
 		return
 	}
+	w.Header().Set("HX-Push-Url", fmt.Sprintf("/collections/%d/cards", col.ID))
 	render(w, r, templates.CardsPage(col, cards, toasts))
 }
 

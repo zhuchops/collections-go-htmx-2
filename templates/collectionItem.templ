@@ -22,20 +22,18 @@ templ CollectionItemLi(collection repo.Collection) {
 
 templ CollectionCreated(collection repo.Collection) {
     @EmptyAddForm()
-    <li id={ fmt.Sprintf("collection-%d", collection.ID) } hx-swap-oob="beforeend:#collections-list">
-        <button
-            hx-get={ fmt.Sprintf("/collections/%d/cards", collection.ID) }
-            hx-target="body"
-            hx-swap="innerHTML"
-            hx-push-url="true"
-        >
-            <p>{ collection.Title }</p>
-        </button>
-        <button
-            hx-delete={ fmt.Sprintf("/collections/%d", collection.ID) }
-            hx-swap="none"
-        >Delete</button>
-    </li>
+    <ul id="collections-list" hx-swap-oob="beforeend">
+        <li id={ fmt.Sprintf("collection-%d", collection.ID) }>
+            <button
+                hx-get={ fmt.Sprintf("/collections/%d/cards", collection.ID) }
+                hx-target="body"
+                hx-swap="innerHTML"
+                hx-push-url="true"
+            >
+                <p>{ collection.Title }</p>
+            </button>
+        </li>
+    </ul>
     @ToastOOB(Toast{Type: ToastSuccess, Message: "Collection created"})
 }
 
